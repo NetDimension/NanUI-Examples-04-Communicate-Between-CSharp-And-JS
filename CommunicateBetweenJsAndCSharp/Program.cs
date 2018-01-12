@@ -6,6 +6,8 @@ using System.Windows.Forms;
 
 namespace CommunicateBetweenJsAndCSharp
 {
+	using NetDimension.NanUI;
+
 	static class Program
 	{
 		/// <summary>
@@ -16,7 +18,12 @@ namespace CommunicateBetweenJsAndCSharp
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Form1());
+
+			if (Bootstrap.Load(PlatformArch.Auto, System.IO.Path.Combine(Application.StartupPath, "fx"), System.IO.Path.Combine(Application.StartupPath, "fx\\Resources"), System.IO.Path.Combine(Application.StartupPath, "fx\\Resources\\locales")))
+			{
+				Bootstrap.RegisterAssemblyResources(System.Reflection.Assembly.GetExecutingAssembly());
+				Application.Run(new Form1());
+			}
 		}
 	}
 }

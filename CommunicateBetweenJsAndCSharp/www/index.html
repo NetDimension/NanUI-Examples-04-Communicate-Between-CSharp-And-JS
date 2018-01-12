@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+<body>
+	<h1>NanUI Example</h1>
+	<h2>Communicate between C# and Javascrtipt</h2>
+
+	<h2>C# INVOKE JAVASCTIPT TEST</h2>
+	<p>C# will invoke sayHello function and say something below.</p>
+	<div id="hello-container">
+
+	</div>
+
+	<h2>JAVASCRIPT INVOKE C# TEST</h2>
+	<div>
+		<div>
+			<button id="btnGetMyObj">Get my object</button>
+			<p></p>
+		</div>
+
+		<div>
+			<button id="btnShowCSMsgBox">showCSharpMessageBox</button>
+			<p></p>
+		</div>
+		<div>
+			<button id="btnGetArray">getArrayFromCSharp</button>
+			<p></p>
+		</div>
+		<div>
+			<button id="btnGetObject">getObjectFromCSharp</button>
+			<p></p>
+		</div>
+		
+		<p>See result in Console Page of DevTools window.</p>
+	</div>
+
+	<h3>INVOKE JAVASCRIPT WITH CALLBACK</h3>
+	<div>
+		<div>
+			<button id="btnCallbackTest">callbackTest</button>
+			<p></p>
+		</div>
+		<div>
+			<button id="btnAsyncCallbackTest">asyncCallbackTest</button>
+			<p></p>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		function sayHello() {
+			var p = document.createElement("p");
+			p.innerText = "Hello NanUI!";
+
+			var container = document.getElementById("hello-container");
+			container.appendChild(p);
+		}
+
+		function sayHelloToSomeone(who) {
+			return "Hello " + who + "! This string is contacted by Javascript.";
+		}
+		document.getElementById("btnGetMyObj").addEventListener("click", function (e) {
+			console.log(my);
+		});
+		document.getElementById("btnShowCSMsgBox").addEventListener("click", function (e) {
+			my.showCSharpMessageBox("MESSAGE FROM JAVASCRIPT");
+		});
+		document.getElementById("btnGetArray").addEventListener("click", function (e) {
+			//getArrayFromCSharp with an array parameter
+			console.log(my.getArrayFromCSharp(["Js_Bison", "Js_Dick"]));
+			//getArrayFromCSharp with no parameter
+			console.log(my.getArrayFromCSharp());
+
+		});
+		document.getElementById("btnGetObject").addEventListener("click", function (e) {
+			console.log(my.getObjectFromCSharp());
+		});
+
+		document.getElementById("btnCallbackTest").addEventListener("click", function (e) {
+			callbackTest(function (result) {
+				//it will show alert immediately
+				alert(result);
+			});
+		});
+
+		document.getElementById("btnAsyncCallbackTest").addEventListener("click", function (e) {
+			asyncCallbackTest(function (result) {
+				//it will take about 5 seconds to show alert
+				alert(result);
+			});
+		});
+	</script>
+</body>
+</html>
